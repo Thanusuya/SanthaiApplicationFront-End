@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+
 import 'package:uyir_angadi/modules/Login.dart';
 
 class Mainpage extends StatefulWidget {
@@ -12,7 +13,7 @@ class MainPage extends State<Mainpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Uyir Angadi'),
+        title: Text('HomePage'),
         shadowColor: Colors.deepPurpleAccent[100],
         flexibleSpace: Container(
           decoration: BoxDecoration(

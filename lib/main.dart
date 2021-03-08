@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:uyir_angadi/modules/Mainpage.dart';
-import 'localization/demo_localization.dart';
-import 'localization/language_constants.dart';
-import 'modules/Language.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:uyir_angadi/modules/language.dart';
 
 void main() {
-  runApp(MyApps());
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('en', 'US'), Locale('ta', 'IN')],
+      path: 'trans',
+      fallbackLocale: Locale('en', 'US'),
+      saveLocale: true,
+      child: MyApps(),
+    ),
+  );
 }
 
 class MyApps extends StatelessWidget {
@@ -19,82 +24,16 @@ class MyApps extends StatelessWidget {
           'assets/logo.jpeg',
           fit: BoxFit.cover,
         ),
-        nextScreen: MyApp(),
+        nextScreen: Main(),
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: Colors.white,
         duration: 2000,
       ),
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
-  }
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
-  static void setLocale(BuildContext context, Locale newLocale) {
-    _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
-    state.setLocale(newLocale);
-  }
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  Locale _locale;
-  setLocale(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
-  }
-
-  @override
-  void didChangeDependencies() {
-    getLocale().then((locale) {
-      setState(() {
-        this._locale = locale;
-      });
-    });
-    super.didChangeDependencies();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (this._locale == null) {
-      return Container(
-        child: Center(
-          child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[800])),
-        ),
-      );
-    } else {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Flutter Localization Demo",
-        theme: ThemeData(primarySwatch: Colors.blue),
-        locale: _locale,
-        supportedLocales: [
-          Locale("en", "US"),
-          Locale("hi", "IND"),
-          Locale("ta", "IN")
-        ],
-        localizationsDelegates: [
-          DemoLocalization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode &&
-                supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
-            }
-          }
-          return supportedLocales.first;
-        },
-        home: Main(),
-      );
-    }
   }
 }
 
@@ -111,7 +50,7 @@ class _MainState extends State<Main> {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: languages(),
+      home: MyHomePage(),
     );
   }
 }

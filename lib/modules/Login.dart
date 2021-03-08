@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:uyir_angadi/modules/Mainpage.dart';
@@ -19,34 +19,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  // ignore: missing_return
-  showAlertDialog(BuildContext context) {
-    // Create button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.pop(context, true);
-      },
-    );
 
-    // Create AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Simple Alert"),
-      content: Text("This is an alert message."),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-  /* void showToast() {
+  void showToast() {
     Fluttertoast.showToast(
         msg: 'Phonenumber and password not found',
         toastLength: Toast.LENGTH_SHORT,
@@ -54,7 +28,7 @@ class _LoginState extends State<Login> {
         timeInSecForIosWeb: 2,
         backgroundColor: Colors.blue,
         textColor: Colors.white);
-  }*/
+  }
 
   Future<logindata> save() async {
     var res = await http
@@ -73,9 +47,9 @@ class _LoginState extends State<Login> {
           return Mainpage();
         }));
       } else if (userResponse.status == false) {
-        showAlertDialog(context);
+        //showAlertDialog(context);
 
-        // showToast();
+        showToast();
       }
     }
   }
@@ -113,7 +87,7 @@ class _LoginState extends State<Login> {
                   height: 150,
                 ),
                 Text(
-                  "Signin",
+                  'Sign_in'.tr(),
                   style: GoogleFonts.pacifico(
                       fontWeight: FontWeight.bold,
                       fontSize: 50,
@@ -249,240 +223,4 @@ class _LoginState extends State<Login> {
       ],
     ));
   }
-} /*import 'package:flutter/material.dart';
-import 'package:uyir_angadi/modules/Register.dart';
-import 'package:http/http.dart' as http;
-import 'FadeAnimation.dart';
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Login(),
-    ));
-class Login extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-  Future save() async {
-    var res = await http.post("http://localhost:8081/Login",
-        headers: <String, String>{
-          'Context-Type': 'application/json;charSet=UTF-8'
-        },
-        body: <String, String>{
-          'email': user.email,
-          'password': user.password
-        });
-    print(res.body);
-  }
-  User user = User('', '');
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 400,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/background.png'),
-                          fit: BoxFit.fill)),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        left: 30,
-                        width: 80,
-                        height: 200,
-                        child: FadeAnimation(
-                            1,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage('assets/light-1.png'))),
-                            )),
-                      ),
-                      Positioned(
-                        left: 140,
-                        width: 80,
-                        height: 150,
-                        child: FadeAnimation(
-                            1.6,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage('assets/light-2.png'))),
-                            )),
-                      ),
-                      Positioned(
-                        right: 40,
-                        top: 40,
-                        width: 80,
-                        height: 150,
-                        child: FadeAnimation(
-                            1.5,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage('assets/clock.png'))),
-                            )),
-                      ),
-                      Positioned(
-                        child: FadeAnimation(
-                          1.6,
-                          Container(
-                            margin: EdgeInsets.only(top: 50),
-                            child: Center(
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(30.0),
-                  child: Column(
-                    children: <Widget>[
-                      FadeAnimation(
-                          1.8,
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(143, 148, 251, .2),
-                                      blurRadius: 20.0,
-                                      offset: Offset(0, 10))
-                                ]),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey[100]))),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: " Phone number",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Password",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          print('hello');
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          width: 270,
-                          alignment: Alignment.bottomLeft,
-                          child: FadeAnimation(
-                              1.5,
-                              Text(
-                                "Forgot Password?",
-                                style: TextStyle(
-                                  color: Color.fromRGBO(143, 148, 251, 1),
-                                ),
-                              )),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      FadeAnimation(
-                          2,
-                          GestureDetector(
-                            onTap: () {
-                              print('hi');
-                            },
-                            child: SizedBox(
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    gradient: LinearGradient(colors: [
-                                      Color.fromRGBO(143, 148, 251, 1),
-                                      Color.fromRGBO(143, 148, 251, .6),
-                                    ])),
-                                child: Center(
-                                  child: Text(
-                                    "Login",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: 140,
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: [
-                            FadeAnimation(
-                                1.5,
-                                Text(
-                                  "New Here? ",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                )),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return Register();
-                                }));
-                              },
-                              child: FadeAnimation(
-                                  1.5,
-                                  Text(
-                                    "Register",
-                                    style: TextStyle(
-                                      color: Colors.deepPurple,
-                                      fontSize: 17,
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ));
-  }
 }
-*/
