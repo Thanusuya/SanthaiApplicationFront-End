@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:uyir_angadi/malvi.dart';
+
+import '../categoryListing.dart';
 
 class Farmcategory extends StatelessWidget {
   @override
@@ -48,7 +49,7 @@ class Farmcategory extends StatelessWidget {
                         icon: new Icon(MdiIcons.cow),
                         iconSize: 120,
                         onPressed: () {
-                          categoryname = "Cow";
+                          categoryname = "cow";
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return MyHomePagevariety();

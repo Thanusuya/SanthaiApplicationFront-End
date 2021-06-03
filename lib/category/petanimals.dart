@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:uyir_angadi/malvi.dart';
+
 import 'package:easy_localization/easy_localization.dart';
+
+import '../categoryListing.dart';
 
 class MyPet extends StatelessWidget {
   @override
