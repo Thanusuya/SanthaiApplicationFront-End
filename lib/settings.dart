@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:uyir_angadi/modules/language.dart';
+
+import 'modules/Languagechange.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -64,9 +67,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(
                   width: 8,
                 ),
-                Text(
-                  "Change Language".tr(),
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => Languagechange()));
+                  },
+                  child: Text(
+                    "Change Language".tr(),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),

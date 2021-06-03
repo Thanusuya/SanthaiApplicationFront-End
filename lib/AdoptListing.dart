@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 var baseUrl = "http://192.168.43.69:8081/";
 
@@ -13,19 +14,19 @@ String mFormatBaseUrl(String url) {
 
 String categoryname = "";
 
-class MyHomePagevariety extends StatefulWidget {
-  MyHomePagevariety({Key key, this.title}) : super(key: key);
+class MyHomePageAdopt extends StatefulWidget {
+  MyHomePageAdopt({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePagevarietyState createState() => _MyHomePagevarietyState();
+  _MyHomePageAdoptState createState() => _MyHomePageAdoptState();
 }
 
-class _MyHomePagevarietyState extends State<MyHomePagevariety> {
+class _MyHomePageAdoptState extends State<MyHomePageAdopt> {
   Future<List<Result>> _getUusers() async {
     var data = await http.get(
-        Uri.http("192.168.43.69:8081", "productfilter/Sell/" + categoryname));
+        Uri.http("192.168.43.69:8081", "productfilter/Adopt/" + categoryname));
 
     var jsonData = json.decode(data.body);
     List<Result> users = [];

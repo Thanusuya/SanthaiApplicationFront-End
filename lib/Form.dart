@@ -40,7 +40,7 @@ class _FormDataState extends State<FormData> {
   final picker = ImagePicker();
 
   Future<void> getImage() async {
-    final pickedFile1 = await picker.getImage(source: ImageSource.camera);
+    final pickedFile1 = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile1 != null) {
@@ -61,6 +61,8 @@ class _FormDataState extends State<FormData> {
     request.fields['age'] = form.age;
     request.fields['variety'] = form.variety;
     request.fields['description'] = form.description;
+    request.fields['gender'] = form.gender;
+    request.fields['process'] = form.process;
     request.fields['colour'] = form.colour;
     request.fields['height'] = form.height;
     request.fields['weight'] = form.weight;
@@ -159,7 +161,7 @@ class _FormDataState extends State<FormData> {
                           FlatButton.icon(
                               onPressed: () async => await getImage(),
                               icon: Icon(Icons.camera),
-                              label: Text("Camera".tr())),
+                              label: Text("Gallery".tr())),
                         ],
                       ),
                       SizedBox(
@@ -238,6 +240,35 @@ class _FormDataState extends State<FormData> {
                           },
                           decoration: InputDecoration(
                               hintText: 'Enter age'.tr(),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(color: Colors.green)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(color: Colors.green)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(color: Colors.red))),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: TextFormField(
+                          controller: TextEditingController(text: form.process),
+                          onChanged: (value) {
+                            form.process = value;
+                          },
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something'.tr();
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              hintText: 'Sell or Adopt'.tr(),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                   borderSide: BorderSide(color: Colors.green)),
@@ -465,6 +496,7 @@ class _FormDataState extends State<FormData> {
 }
 
 class Forms {
+  String process;
   String category;
   String variety;
   String gender;
